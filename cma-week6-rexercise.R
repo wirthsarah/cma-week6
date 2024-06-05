@@ -48,6 +48,7 @@ wildschwein_sommer_Feld$hour <- hour(wildschwein_sommer_Feld$DatetimeUTC)
 wildschwein_summary <-wildschwein_sommer_Feld |> count(TierName,hour,Frucht)
 max<-wildschwein_sommer_Feld |> count(Frucht)#Wald, Feuchtgebiet, Gerste, NA, Rueben
 
+
 wildschwein_summary$Frucht[!(wildschwein_summary$Frucht %in% c("Wald","Feuchtgebiet","Gerste","Rueben"))]<-"other"
 
 ggplot(data=wildschwein_summary, aes(x=hour, fill=factor(Frucht,levels=c("Rueben","Gerste","other","Feuchtgebiet","Wald"))))+
@@ -56,7 +57,6 @@ ggplot(data=wildschwein_summary, aes(x=hour, fill=factor(Frucht,levels=c("Rueben
   labs(fill="area")+
   scale_y_continuous("Percentage", labels= scales::percent)+
   xlab("Time of day in hours")
-  #looks different compared to on github but i did not round the time as it was done there
 
 
 ggplot(data=filter(wildschwein_summary,TierName=="Ruth"), aes(x=hour, fill=factor(Frucht,levels=c("Rueben","Gerste","other","Feuchtgebiet","Wald"))))+
@@ -64,7 +64,7 @@ ggplot(data=filter(wildschwein_summary,TierName=="Ruth"), aes(x=hour, fill=facto
  coord_polar()+
   labs(fill="area")+
   xlab("")+
-  ylab("")#not perfect, but sufficient for today
+  ylab("")
 
 # Task 4 ----
 vegehoehe <- terra::rast("vegetationshoehe_LFI.tif")
